@@ -55,7 +55,7 @@ if(!options.lazy) {
 > 在这一阶段，sockjs是服务端和浏览器端之间的桥梁。在启动 devServer 的时候，会创建一个sockServer服务。当浏览器访问该devServer服务的时候，就通过该sockServer在服务端和浏览器端建立了一个 webSocket 长连接。以便将 webpack 编译和打包的各个阶段状态告知浏览器。
 
 ```js
-  // node_modules/webpack-dev-server/lib/Server.js
+  // node_modules/webpack-dev-server/lib/Server.js 代码截取自2.x版本的webpack-dev-server
   const sockServer = sockjs.createServer({
     // Use provided up-to-date sockjs-client
     sockjs_url: '/__webpack_dev_server__/sockjs.bundle.js',
@@ -169,6 +169,8 @@ entry = [
 然后我们依次可以查看数组前两个文件，
 
 其中第一个文件(webpack-dev-server/client/index.js?http://localhost:8080)为什么会有带"?http://localhost:8080"(我暂时还不知道，或许和loader有些关系？因为客户端中的client-js明显于源码不同，这必然是loader带来的影响。)
+
+> 值得一提的是，未开启HMR，则只会有第一个文件。
 
 ```js
 //webpack-dev-server/client/index.js?http://localhost:8080
@@ -432,7 +434,7 @@ if(module.hot) {
 	}
 ```
 
-check函数中，先检查hotStatus状态，并设置状态。随后调用hotDownloadManifest函数，该函数实际上就是下发一个http请求。
+check函数中，先检查hotStatus状态，并设置状态。随后调用hotDownloadManifest函数，该函数实际上就是下发一个http请求。该函数的意义实际上就是获取本次更新完成后，哪些文件改动了的清单。
 其中的`requestPath = $require$.p + $hotMainFilename$`;
 在编译后就是`var requestPath = __webpack_require__.p + "" + hotCurrentHash + ".hot-update.json"`
 

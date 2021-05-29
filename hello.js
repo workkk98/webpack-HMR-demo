@@ -1,2 +1,2 @@
-const hello = () => 'hello world$2!'
+const hello = () => 'hello world4!'
 export default hello
