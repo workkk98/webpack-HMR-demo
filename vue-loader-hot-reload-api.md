@@ -1,6 +1,5 @@
 # vue-loader是怎么兼容webpack的HMR的
 
-
 ### vue-loader关闭热重载
 
 这个特性之前漏掉了
@@ -20,7 +19,7 @@ module.exports = {
 }
 ```
 
-### hot-reload api解析
+### hot-reload api解析·
 
 我们可以从vue-loader的解析函数中看到，
 ```js
@@ -294,7 +293,6 @@ exports.rerender = tryWrap(function (id, options) {
 
 ### Q
 
-1. 按照本例，如果有两个入口，一个是index，一个是vueDemo。很神奇的是index的热更新出现更新依赖的hello.js，webpack-runtime却说没有模块更新？
-2. vue是怎么做到只更新一个模块的，例如template-block更新了，只去获取template的模块
+1. vue是怎么做到只更新一个模块的，例如template-block更新了，只去获取template的模块
    这个本质上我觉得就是webpack-hot-module做的事了，就跟某个模块更新一样，它会对比这个文件是否有改动（通过hash值）。
 
